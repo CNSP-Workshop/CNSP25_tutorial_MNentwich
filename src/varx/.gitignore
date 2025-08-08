@@ -1,0 +1,12 @@
+data/Example_patient/*
+versions/*
+references/*
+figures/*
+*.asv
+papers/*
+
+examples/neurolib_brainmodel/.idea/workspace.xml
+python/__pycache__/*
+/examples/neurolib_brainmodel/.idea/*
+/examples/neurolib_brainmodel/__pycache__/*
+
