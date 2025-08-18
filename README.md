@@ -2,7 +2,7 @@
 This tutorial is presented at the Cognition and Natural Sensory Processing Initiative (CNSP) 2025 workshop (https://cnspworkshop.net/workshops.html). 
 
 ### Data and Code
-Sample data at: https://osf.io/6rwgv/files/osfstorage
+Sample data at: https://osf.io/6rwgv/files/osfstorage. Place the data in any local folder and define the path in the Setup section of the tutorial script (line 32). 
 
 The up to date VARX package (including python and R versions) can be found at: https://github.com/lcparra/varx
 
