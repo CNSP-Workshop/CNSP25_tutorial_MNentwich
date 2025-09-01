@@ -464,6 +464,49 @@ model = varx(y,na,x,nb,lambda);
 varx_display(model,plottype='graph',xname={'x1'},yname={'y1','y2'});
 
 
+%% Use AIC to select the correct na and nb on for a known model. Compare 
+%% to the method with used in the Nentwich eLIfe 2025, which was counting 
+%% number of significant connections -- that defenitively is not correct 
+%% in these simulations.
+clear all
+
+% define VARX model. Where there are all zeros, that path does not
+% contribute
+A(:,:,1) = [[0.3 -0.5 0.1 .1]',[0 0 0    0]', [0.5 0 0.1 0]']; 
+A(:,:,2) = [[-.5 0.4  0 .1]',[0.5 -.7 0 .1]', [0 0 0 0]'];
+A(:,:,3) = [[0  0  0 0.1 ]',[ 0 0 0.1 .1]', [0.5 0 0.1 .1]'];
+B = [[1 1 0.2 0.3 -.1]',[1 -1 0.2 -0.3 -.1]',[-1 1 -0.2 0.3 0.1]']; 
+[nb_true,ydim,xdim] = size(B);
+[na_true,ydim,ydim] = size(A);
+
+% simulate 
+lambda = 0.0;
+T = 1000;
+x = randn(T,xdim);
+[y,e] = varx_simulate(B,A,x,1); 
+
+% estimate VARX model
+AICmaxlag = 10; % specify the largest na,nb we will test. Setting this also will omitt slower pvalue calculation 
+for na=1:5
+    for nb=1:AICmaxlag
+        model = varx(y,na,x,nb,lambda,AICmaxlag);
+        AIC(na,nb) = sum(model.AIC);
+    end
+end
+plot(AIC(2:end,:)')
+
+
+ disp(['True na, nb         = ' num2str([na_true,nb_true])])
+ 
+ % optimal na and np acording to AIC
+ [~,indx]=min(AIC(:)); 
+ na_opt=rem(indx,size(AIC,1));
+ nb_opt=ceil(indx/size(AIC,1));
+
+ disp(['Estimated with AIC  = ' num2str([na_opt ,nb_opt ])])
+
+
+
 % ----------------- result display function --------------------------
 function show_prediction(x,y,yest)
 
