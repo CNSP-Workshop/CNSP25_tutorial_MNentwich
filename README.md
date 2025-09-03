@@ -1,3 +1,5 @@
+_This repository was forked from Maximilian Nentwich's GitHub at the start of his tutorial presentation at CNSP 2025._
+
 # VARX Tutorial 
 This tutorial is presented at the Cognition and Natural Sensory Processing Initiative (CNSP) 2025 workshop (https://cnspworkshop.net/workshops.html). 
 
